@@ -8,7 +8,7 @@ ksp = "2.3.4"
 coreKtx = "1.15.0"
 lifecycle = "2.10.0"
 activityCompose = "1.12.4"
-# coreSplashScreen = "1.0.1"
+coreSplashScreen = "1.0.1"
 
 
 # UI Compose
@@ -42,6 +42,7 @@ adsMobileSdk = "0.24.0-beta01"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashScreen" }
 lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 
 
@@ -101,7 +102,6 @@ coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
-ads-mobile-sdk = { group = "com.google.android.libraries.ads.mobile.sdk", name = "ads-mobile-sdk", version.ref = "adsMobileSdk" }
 
 
 ##############################

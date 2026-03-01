@@ -2,4 +2,11 @@
 <resources>
 
     <style name="Theme.EggTracker" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.EggTracker.Splash" parent="Theme.EggTracker">
+        <item name="android:windowBackground">@color/soft_red</item> <!-- Fond plein -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_app_logo</item>
+        <item name="windowSplashScreenBackground">@color/soft_red</item> <!-- Cercle icône -->
+        <item name="postSplashScreenTheme">@style/Theme.EggTracker</item>
+    </style>
 </resources>

@@ -44,6 +44,7 @@ dependencies {
     // ######################
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime)
+    implementation(libs.core.splashscreen)
 
     // ######################
     // UI COMPOSE
