@@ -18,7 +18,7 @@ import java.time.LocalDate
         )
     ],
     indices = [
-        Index(value = ["coop_id"])
+        Index(value = ["coop_id", "date"], unique = true)
     ]
 )
 data class EggLogDto(
