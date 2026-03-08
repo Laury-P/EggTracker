@@ -29,6 +29,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -45,6 +46,8 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime)
     implementation(libs.core.splashscreen)
+    coreLibraryDesugaring(libs.core.desugar)
+
 
     // ######################
     // UI COMPOSE
@@ -57,8 +60,6 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(libs.navigation.compose)
     implementation(libs.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.foundation)
 
     // ######################
     // ROOM
