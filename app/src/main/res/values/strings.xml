@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">EggTracker</string>
+
+    <string name="poultry_chicken">Chicken</string>
+    <string name="poultry_duck">Duck</string>
+    <string name="poultry_goose">Goose</string>
+    <string name="poultry_quail">Quail</string>
+    <string name="poultry_other">Other</string>
 </resources>

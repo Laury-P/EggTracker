@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EggTracker</string>
+
+    <string name="poultry_chicken">Poule</string>
+    <string name="poultry_duck">Canard</string>
+    <string name="poultry_goose">Oie</string>
+    <string name="poultry_quail">Caille</string>
+    <string name="poultry_other">Autre</string>
+</resources>

@@ -2,6 +2,7 @@
 agp = "9.0.1"
 kotlin = "2.3.0"
 ksp = "2.3.4"
+desugar = "2.0.4"
 
 
 # Base Android
@@ -41,7 +42,7 @@ turbine = "1.2.1"
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashScreen" }
 lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
-
+core-desugar = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar"}
 
 ##############################
 # UI COMPOSE
