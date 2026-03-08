@@ -1,8 +1,9 @@
 package com.openclassroom.eggtracker.data.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Upsert
 import com.openclassroom.eggtracker.data.entity.EggLogDto
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
@@ -10,8 +11,8 @@ import java.time.LocalDate
 @Dao
 interface EggLogDao {
 
-    @Upsert
-    suspend fun upsertEggLog(eggLog: EggLogDto)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOrUpdateEggLog(eggLog: EggLogDto)
 
     // Complete historic for a Coop
     @Query("SELECT * FROM egg_log WHERE coop_id = :coopId ORDER BY date DESC")
