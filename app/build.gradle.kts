@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(libs.navigation.compose)
     implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.compose.material.icons.extended)
 
     // ######################
     // ROOM

@@ -7,4 +7,9 @@
     <string name="poultry_goose">Oie</string>
     <string name="poultry_quail">Caille</string>
     <string name="poultry_other">Autre</string>
+    <string name="nav_home">Acceuil</string>
+    <string name="nav_coops">Poulailler</string>
+    <string name="nav_egg_log">Saisie Oeuf</string>
+    <string name="nav_settings">Paramètre</string>
+    <string name="nav_statistics">Statistiques</string>
 </resources>
