@@ -18,74 +18,7 @@ import com.openclassroom.eggtracker.ui.theme.SoftGreen
 
 @Composable
 fun HomeScreenContent() {
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Text("EggTracker", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary)
-            Text("Bienvenue dans votre application !", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onBackground)
-
-            // Boutons
-            Button(onClick = {}) { Text("Primary Button") }
-            Button(onClick = {}, colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)) { Text("Secondary Button") }
-
-            // Carte
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text("Carte de test", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurface)
-                    Text("Exemple de contenu pour vérifier le contraste et les couleurs.", color = MaterialTheme.colorScheme.onSurface)
-                }
-            }
-
-            // Bouton accent vert
-            Button(
-                onClick = {},
-                colors = ButtonDefaults.buttonColors(containerColor = SoftGreen)
-            ) {
-                Text("Bouton accent vert", color = Color.White)
-            }
-
-            // Exemple de fond vert pour retour ou notification
-            Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                color = SoftGreen.copy(alpha = 0.2f),
-                tonalElevation = 2.dp
-            ) {
-                Text(
-                    "Message d'accent vert (retour positif)",
-                    modifier = Modifier.padding(16.dp),
-                    color = DarkText
-                )
-            }
-
-            // Champ texte
-            OutlinedTextField(value = "", onValueChange = {}, label = { Text("Champ de texte") })
-
-            // Switch
-            var checked by remember { mutableStateOf(true) }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Activer option")
-                Switch(checked = checked, onCheckedChange = { checked = it })
-            }
-
-            // Liste d’éléments
-            Column {
-                repeat(5) { index ->
-                    Text("Élément de liste $index", modifier = Modifier.padding(4.dp), color = MediumText)
-                }
-            }
-        }
-
-    }
+Text(text = "tableau de bord")
 }
 
 @Composable

@@ -6,4 +6,10 @@
     <string name="poultry_goose">Goose</string>
     <string name="poultry_quail">Quail</string>
     <string name="poultry_other">Other</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_coops">Coops</string>
+    <string name="nav_egg_log">Egg Logs</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_statistics">Statistics</string>
 </resources>
