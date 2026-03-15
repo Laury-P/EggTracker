@@ -25,7 +25,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.openclassroom.eggtracker.ui.screens.CoopScreen
+import com.openclassroom.eggtracker.ui.screens.coop.CoopScreen
 import com.openclassroom.eggtracker.ui.screens.EggLogScreen
 import com.openclassroom.eggtracker.ui.screens.HomeScreen
 import com.openclassroom.eggtracker.ui.screens.NavigationRoutes
