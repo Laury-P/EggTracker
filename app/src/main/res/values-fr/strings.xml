@@ -12,4 +12,8 @@
     <string name="nav_egg_log">Saisie Oeuf</string>
     <string name="nav_settings">Paramètre</string>
     <string name="nav_statistics">Statistiques</string>
+    <string name="delete_button">Supprimer</string>
+    <string name="edit_button">Modifier</string>
+    <string name="no_coops">Aucun poulailler</string>
+    <string name="add_coop">Créer</string>
 </resources>
