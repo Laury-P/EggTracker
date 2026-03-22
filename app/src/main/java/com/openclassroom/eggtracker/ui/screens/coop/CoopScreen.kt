@@ -21,19 +21,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.openclassroom.eggtracker.R
 import com.openclassroom.eggtracker.domain.Coop
+import com.openclassroom.eggtracker.ui.screens.NavigationRoutes
 
 @Composable
 fun CoopScreen(
-    viewModel: CoopViewModel = hiltViewModel()
+    viewModel: CoopViewModel = hiltViewModel(), navController: NavController
 ) {
     // TODO Limitation des poulailler en fonction du statut premium ou non
     val coops = viewModel.coops.collectAsStateWithLifecycle()
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = { /*TODO*/ }) {
+            FloatingActionButton(onClick = { navController.navigate(NavigationRoutes.AddEditCoopScreenNav.route) }) {
                 Text(text = "+")
             }
         }
@@ -65,6 +67,7 @@ fun CoopContent(coops: List<Coop>) {
 
 @Composable
 fun CoopDisplay(coop: Coop, editCoopButton: () -> Unit = {}, deleteCoopButton: () -> Unit = {}) {
+    // TODO Espacer et faire un affichage propre de la carte, Type de volaille actuellment en int
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(text = coop.name)

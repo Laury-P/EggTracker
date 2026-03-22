@@ -16,4 +16,5 @@
     <string name="edit_button">Modifier</string>
     <string name="no_coops">Aucun poulailler</string>
     <string name="add_coop">Créer</string>
+    <string name="nav_add_edit_coop">Add new coop</string>
 </resources>

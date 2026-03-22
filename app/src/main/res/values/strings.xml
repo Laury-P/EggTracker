@@ -16,4 +16,5 @@
     <string name="edit_button">Edit</string>
     <string name="no_coops">No coops</string>
     <string name="add_coop">Add</string>
+    <string name="nav_add_edit_coop">Add new coop</string>
 </resources>

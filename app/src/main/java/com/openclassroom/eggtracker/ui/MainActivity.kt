@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -31,6 +31,7 @@ import com.openclassroom.eggtracker.ui.screens.HomeScreen
 import com.openclassroom.eggtracker.ui.screens.NavigationRoutes
 import com.openclassroom.eggtracker.ui.screens.SettingsScreen
 import com.openclassroom.eggtracker.ui.screens.StatisticsScreen
+import com.openclassroom.eggtracker.ui.screens.coop.AddEditCoopScreen
 import com.openclassroom.eggtracker.ui.theme.EggTrackerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,18 +54,25 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 @Composable
-fun MainScreen(){
+fun MainScreen() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
+    val currentDestination = navBackStackEntry?.destination?.route
+
+    val showBottomBar =
+        NavigationRoutes.bottomNavItems.any { it.navRoute.route == currentDestination }
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController, currentDestination)
+            if (showBottomBar) BottomNavigationBar(navController, currentDestination)
         }
     ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
+        Box( modifier = Modifier.padding(
+                bottom = if (showBottomBar) innerPadding.calculateBottomPadding() else 0.dp,
+                top = innerPadding.calculateTopPadding())
+        ) {
             EggTrackerNavHost(navController)
         }
     }
@@ -72,25 +80,28 @@ fun MainScreen(){
 }
 
 @Composable
-fun BottomNavigationBar(navController: NavHostController, selectedDestination: NavDestination?) {
-    val destination = listOf(NavigationRoutes.HomeScreenNav, NavigationRoutes.CoopScreenNav, NavigationRoutes.EggLogScreenNav, NavigationRoutes.SettingsScreenNav, NavigationRoutes.StatisticsScreenNav)
+fun BottomNavigationBar(navController: NavHostController, selectedDestination: String?) {
+    val destination = NavigationRoutes.bottomNavItems
 
-    NavigationBar() {
+    NavigationBar {
         destination.forEach { destination ->
             NavigationBarItem(
-                selected = selectedDestination?.route == destination.route,
+                selected = selectedDestination == destination.navRoute.route,
                 onClick = {
-                    navController.navigate(destination.route) {
-                        popUpTo(navController.graph.startDestinationId){
+                    navController.navigate(destination.navRoute.route) {
+                        popUpTo(navController.graph.startDestinationId) {
                             saveState = true
                         }
                         launchSingleTop = true
                         restoreState = true
 
-                        }
+                    }
                 },
                 icon = {
-                    Icon(destination.icon, contentDescription = stringResource(destination.titleRes))
+                    Icon(
+                        destination.icon,
+                        contentDescription = stringResource(destination.titleRes)
+                    )
                 },
                 label = {
                     Text(stringResource(destination.titleRes))
@@ -104,12 +115,13 @@ fun BottomNavigationBar(navController: NavHostController, selectedDestination: N
 fun EggTrackerNavHost(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = NavigationRoutes.HomeScreenNav.route) {
+        startDestination = NavigationRoutes.HomeScreenNav.route
+    ) {
         composable(NavigationRoutes.HomeScreenNav.route) {
             HomeScreen()
         }
         composable(NavigationRoutes.CoopScreenNav.route) {
-            CoopScreen()
+            CoopScreen(navController = navController)
         }
         composable(NavigationRoutes.EggLogScreenNav.route) {
             EggLogScreen()
@@ -119,6 +131,9 @@ fun EggTrackerNavHost(navController: NavHostController) {
         }
         composable(NavigationRoutes.StatisticsScreenNav.route) {
             StatisticsScreen()
+        }
+        composable(NavigationRoutes.AddEditCoopScreenNav.route) {
+            AddEditCoopScreen(navController = navController)
         }
 
     }
