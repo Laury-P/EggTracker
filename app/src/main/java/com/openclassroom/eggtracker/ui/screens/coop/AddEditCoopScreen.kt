@@ -20,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -34,12 +33,12 @@ import androidx.navigation.NavController
 import com.openclassroom.eggtracker.R
 import com.openclassroom.eggtracker.domain.Coop
 import com.openclassroom.eggtracker.domain.PoultryType
+import com.openclassroom.eggtracker.ui.theme.EggTrackerTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditCoopScreen(viewModel: CoopViewModel = hiltViewModel(), navController: NavController) {
-    // TODO Enelevert tout les text en dur
     // TODO espacé proprement le formulaire
     // TODO gestion de modifier un poulailler
     Scaffold(
@@ -50,7 +49,7 @@ fun AddEditCoopScreen(viewModel: CoopViewModel = hiltViewModel(), navController:
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.back_button)
                         )
                     }
                 })
@@ -73,12 +72,12 @@ fun AddEditCoopContent(modifier: Modifier = Modifier, onSaveCoopClick: (Coop) ->
     var expanded by remember { mutableStateOf(false) }
     var type by remember { mutableStateOf(PoultryType.CHICKEN) }
     val options = PoultryType.entries.map { it }
-    var birdCount by remember { mutableIntStateOf(0) }
+    var birdCount by remember { mutableStateOf("") }
 
     Column(modifier = modifier) {
         OutlinedTextField(
             onValueChange = { name = it },
-            label = { Text("Nom du poulailler") },
+            label = { Text(stringResource(R.string.coop_name_label)) },
             value = name,
             singleLine = true
         )
@@ -112,14 +111,19 @@ fun AddEditCoopContent(modifier: Modifier = Modifier, onSaveCoopClick: (Coop) ->
         }
         // TODO : regler probleme du 0 quand on rentre un chiffre
         OutlinedTextField(
-            onValueChange = { birdCount = it.toIntOrNull() ?: 0 },
-            label = { Text("Nombre de volaille") },
-            value = birdCount.toString(),
+            onValueChange = { newValue -> birdCount = newValue.filter { it.isDigit() } },
+            label = { Text(stringResource(R.string.bird_count_label)) },
+            value = birdCount,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
-            )
+            ),
+            supportingText = {
+                if (birdCount == "0") {
+                    Text(text = stringResource(R.string.bird_count_null_error))
+                }
+            }
         )
 
         Button(
@@ -128,13 +132,13 @@ fun AddEditCoopContent(modifier: Modifier = Modifier, onSaveCoopClick: (Coop) ->
                     Coop(
                         name = name,
                         type = type,
-                        birdCount = birdCount
+                        birdCount = birdCount.toIntOrNull() ?: 0
                     )
                 )
             },
-            enabled = name.isNotBlank() && birdCount > 0
+            enabled = name.isNotBlank() && (birdCount.toIntOrNull() ?: 0) > 0
         ) {
-            Text("Enregistrer")
+            Text(stringResource(R.string.save_button))
         }
     }
 }
@@ -142,5 +146,7 @@ fun AddEditCoopContent(modifier: Modifier = Modifier, onSaveCoopClick: (Coop) ->
 @Preview
 @Composable
 fun AddEditCoopContentPreview() {
-    AddEditCoopContent(onSaveCoopClick = {})
+    EggTrackerTheme(darkTheme = false) {
+        AddEditCoopContent(onSaveCoopClick = {})
+    }
 }

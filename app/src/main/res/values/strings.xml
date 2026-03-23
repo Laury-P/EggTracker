@@ -17,4 +17,9 @@
     <string name="no_coops">No coops</string>
     <string name="add_coop">Add</string>
     <string name="nav_add_edit_coop">Add new coop</string>
+    <string name="back_button">Back</string>
+    <string name="coop_name_label">Name of coop</string>
+    <string name="bird_count_label">Number of bird</string>
+    <string name="save_button">Save</string>
+    <string name="bird_count_null_error">Number of bird should be above 0</string>
 </resources>
