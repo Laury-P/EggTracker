@@ -22,6 +22,16 @@ class CoopViewModel @Inject constructor(private val coopRepository: CoopReposito
         }
     }
 
-
-
+    fun deleteCoop(coop: Coop) {
+        viewModelScope.launch {
+            coopRepository.deleteCoop(coop)
+        }
+    }
 }
+
+
+
+
+
+
+
