@@ -1,5 +1,6 @@
 package com.openclassroom.eggtracker.ui.screens.coop
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -40,7 +42,7 @@ fun CoopScreen(
             }
         }
     ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
+        Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())) {
             CoopContent(coops.value)
         }
     }
@@ -52,10 +54,22 @@ fun CoopContent(coops: List<Coop>) {
         Box(modifier = Modifier.fillMaxSize().padding(32.dp),
             contentAlignment = Alignment.Center
         ){
-            Text(text = stringResource(R.string.no_coops), textAlign = TextAlign.Center, style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = stringResource(R.string.no_coops),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodyLarge)
         }
     } else {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
+            item {
+                Text(
+                    text = stringResource(R.string.nav_coops),
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+            }
             coops.forEach { coop ->
                 item {
                     CoopDisplay(coop)
@@ -67,17 +81,27 @@ fun CoopContent(coops: List<Coop>) {
 
 @Composable
 fun CoopDisplay(coop: Coop, editCoopButton: () -> Unit = {}, deleteCoopButton: () -> Unit = {}) {
-    // TODO Espacer et faire un affichage propre de la carte, Type de volaille actuellment en int
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Text(text = coop.name)
-            Text(text = "${coop.type.labelResId} - ${coop.birdCount}")
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        HorizontalDivider(Modifier.padding(vertical = 8.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+            Text(text = coop.name, style = MaterialTheme.typography.titleSmall)
+            Text(text = "${stringResource(coop.type.labelResId)} - ${coop.birdCount}")
         }
-        Row(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.End),
+        ) {
             Button(onClick = { editCoopButton() }) {
                 Text(text = stringResource(R.string.edit_button))
                 // TODO Modifier le poulailler
             }
+
             Button(onClick = { deleteCoopButton() }) {
                 Text(text = stringResource(R.string.delete_button))
                 // TODO Supprimer le poulailler
