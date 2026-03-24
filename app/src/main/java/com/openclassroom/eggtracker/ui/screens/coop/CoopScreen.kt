@@ -1,5 +1,6 @@
 package com.openclassroom.eggtracker.ui.screens.coop
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,13 +33,14 @@ import com.openclassroom.eggtracker.R
 import com.openclassroom.eggtracker.domain.Coop
 import com.openclassroom.eggtracker.ui.screens.NavigationRoutes
 
-
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CoopScreen(
     viewModel: CoopViewModel = hiltViewModel(), navController: NavController
 ) {
     // TODO Limitation des poulailler en fonction du statut premium ou non
+    // TODO gerer un etat de chargement pendant la recup des données de la bdd
     val coops = viewModel.coops.collectAsStateWithLifecycle()
 
     val showDialog = remember { mutableStateOf(false) }
@@ -50,8 +52,8 @@ fun CoopScreen(
                 Text(text = "+")
             }
         }
-    ) { innerPadding ->
-        Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())) {
+    ) {  _ ->
+        Box(modifier = Modifier.fillMaxSize()) {
             CoopContent(
                 coops.value,
                 deleteCoopClick = { selectedCoop ->
