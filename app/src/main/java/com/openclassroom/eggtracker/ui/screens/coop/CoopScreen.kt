@@ -59,6 +59,9 @@ fun CoopScreen(
                 deleteCoopClick = { selectedCoop ->
                     coopToDelete.value = selectedCoop
                     showDialog.value = true
+                },
+                editCoopClick = { selectedCoop ->
+                    navController.navigate("add_edit_coop?coopId=${selectedCoop.id}")
                 }
             )
         }
@@ -90,7 +93,7 @@ fun CoopScreen(
 
 
 @Composable
-fun CoopContent(coops: List<Coop>, deleteCoopClick: (Coop) -> Unit) {
+fun CoopContent(coops: List<Coop>, deleteCoopClick: (Coop) -> Unit, editCoopClick: (Coop) -> Unit) {
     if (coops.isEmpty()) {
         Box(
             modifier = Modifier
@@ -117,7 +120,7 @@ fun CoopContent(coops: List<Coop>, deleteCoopClick: (Coop) -> Unit) {
             }
             coops.forEach { coop ->
                 item {
-                    CoopDisplay(coop, onDeleteCoopClick = { deleteCoopClick(coop) })
+                    CoopDisplay(coop, onDeleteCoopClick = { deleteCoopClick(coop) }, editCoopClick = {editCoopClick(coop)})
                 }
             }
         }
@@ -128,7 +131,7 @@ fun CoopContent(coops: List<Coop>, deleteCoopClick: (Coop) -> Unit) {
 @Composable
 fun CoopDisplay(
     coop: Coop,
-    editCoopButton: () -> Unit = {},
+    editCoopClick: (coop:Coop) -> Unit,
     onDeleteCoopClick: (coop: Coop) -> Unit
 ) {
     Column(
@@ -149,9 +152,8 @@ fun CoopDisplay(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.End),
         ) {
-            Button(onClick = { editCoopButton() }) {
+            Button(onClick = { editCoopClick(coop) }) {
                 Text(text = stringResource(R.string.edit_button))
-                // TODO Modifier le poulailler
             }
 
             Button(onClick = { onDeleteCoopClick(coop) }) {
@@ -165,7 +167,7 @@ fun CoopDisplay(
 @Preview
 @Composable
 fun CoopContentPreview() {
-    CoopContent(emptyList(), deleteCoopClick = {})
+    CoopContent(emptyList(), deleteCoopClick = {}, editCoopClick = {})
 }
 
 

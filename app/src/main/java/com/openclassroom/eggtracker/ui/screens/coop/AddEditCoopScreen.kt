@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,24 +33,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.openclassroom.eggtracker.R
-import com.openclassroom.eggtracker.domain.Coop
 import com.openclassroom.eggtracker.domain.PoultryType
-import com.openclassroom.eggtracker.ui.theme.EggTrackerTheme
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddEditCoopScreen(viewModel: CoopViewModel = hiltViewModel(), navController: NavController) {
-    // TODO gestion de modifier un poulailler
+fun AddEditCoopScreen(viewModel: AddEditCoopViewModel = hiltViewModel(), navController: NavController, coopId: Long) {
+
+    LaunchedEffect(coopId) {
+        if (coopId != -1L) viewModel.loadCoop(coopId)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.nav_add_edit_coop)) },
+                title = { Text(
+                    if (coopId == -1L) stringResource(R.string.nav_add_edit_coop)
+                    else stringResource(R.string.edit_coop)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
@@ -67,8 +70,9 @@ fun AddEditCoopScreen(viewModel: CoopViewModel = hiltViewModel(), navController:
     ) { innerPadding ->
         AddEditCoopContent(
             modifier = Modifier.padding(innerPadding),
-            onSaveCoopClick = { coop ->
-                viewModel.insertOrUpdateCoop(coop)
+            viewModel = viewModel,
+            onSaveCoopClick = {
+                viewModel.insertOrUpdateCoop()
                 navController.popBackStack()
             })
     }
@@ -76,12 +80,10 @@ fun AddEditCoopScreen(viewModel: CoopViewModel = hiltViewModel(), navController:
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddEditCoopContent(modifier: Modifier = Modifier, onSaveCoopClick: (Coop) -> Unit) {
-    var name by remember { mutableStateOf("") }
+fun AddEditCoopContent(modifier: Modifier = Modifier, viewModel: AddEditCoopViewModel, onSaveCoopClick: () -> Unit) {
+
     var expanded by remember { mutableStateOf(false) }
-    var type by remember { mutableStateOf(PoultryType.CHICKEN) }
     val options = PoultryType.entries.map { it }
-    var birdCount by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp),
@@ -89,9 +91,9 @@ fun AddEditCoopContent(modifier: Modifier = Modifier, onSaveCoopClick: (Coop) ->
         horizontalAlignment = Alignment.CenterHorizontally
         ) {
         OutlinedTextField(
-            onValueChange = { name = it },
+            onValueChange = { viewModel.onNamedChanged(it) },
             label = { Text(stringResource(R.string.coop_name_label)) },
-            value = name,
+            value = viewModel.name,
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -100,7 +102,7 @@ fun AddEditCoopContent(modifier: Modifier = Modifier, onSaveCoopClick: (Coop) ->
             onExpandedChange = { expanded = !expanded }
         ) {
             OutlinedTextField(
-                value = stringResource(type.labelResId),
+                value = stringResource(viewModel.type.labelResId),
                 onValueChange = {},
                 readOnly = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
@@ -116,7 +118,7 @@ fun AddEditCoopContent(modifier: Modifier = Modifier, onSaveCoopClick: (Coop) ->
                     DropdownMenuItem(
                         text = { Text(stringResource(selectionOption.labelResId)) },
                         onClick = {
-                            type = selectionOption
+                            viewModel.onTypeChanged(selectionOption)
                             expanded = false
                         }
                     )
@@ -125,16 +127,17 @@ fun AddEditCoopContent(modifier: Modifier = Modifier, onSaveCoopClick: (Coop) ->
         }
 
         OutlinedTextField(
-            onValueChange = { newValue -> birdCount = newValue.filter { it.isDigit() } },
+            onValueChange = { newValue ->
+                viewModel.onBirdCountChanged(newValue.filter { it.isDigit() }) },
             label = { Text(stringResource(R.string.bird_count_label)) },
-            value = birdCount,
+            value = viewModel.birdCount,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
             ),
             supportingText = {
-                if (birdCount == "0") {
+                if (viewModel.birdCount == "0") {
                     Text(text = stringResource(R.string.bird_count_null_error))
                 }
             },
@@ -143,25 +146,12 @@ fun AddEditCoopContent(modifier: Modifier = Modifier, onSaveCoopClick: (Coop) ->
 
         Button(
             onClick = {
-                onSaveCoopClick(
-                    Coop(
-                        name = name,
-                        type = type,
-                        birdCount = birdCount.toIntOrNull() ?: 0
-                    )
-                )
+                onSaveCoopClick()
             },
-            enabled = name.isNotBlank() && (birdCount.toIntOrNull() ?: 0) > 0
+            enabled = viewModel.name.isNotBlank() && (viewModel.birdCount.toIntOrNull() ?: 0) > 0
         ) {
             Text(stringResource(R.string.save_button))
         }
     }
 }
 
-@Preview
-@Composable
-fun AddEditCoopContentPreview() {
-    EggTrackerTheme(darkTheme = false) {
-        AddEditCoopContent(onSaveCoopClick = {})
-    }
-}

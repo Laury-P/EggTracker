@@ -6,9 +6,11 @@ import com.openclassroom.eggtracker.domain.Coop
 import com.openclassroom.eggtracker.domain.repository.CoopRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @HiltViewModel
 class CoopViewModel @Inject constructor(private val coopRepository: CoopRepository) : ViewModel() {
@@ -16,17 +18,13 @@ class CoopViewModel @Inject constructor(private val coopRepository: CoopReposito
     val coops = coopRepository.getAllCoops()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
-    fun insertOrUpdateCoop(coop: Coop) {
-        viewModelScope.launch {
-            coopRepository.insertOrUpdateCoop(coop)
-        }
-    }
-
     fun deleteCoop(coop: Coop) {
         viewModelScope.launch {
             coopRepository.deleteCoop(coop)
         }
     }
+
+
 }
 
 

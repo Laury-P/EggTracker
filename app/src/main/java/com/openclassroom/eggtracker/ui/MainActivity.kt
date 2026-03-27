@@ -132,8 +132,12 @@ fun EggTrackerNavHost(navController: NavHostController) {
         composable(NavigationRoutes.StatisticsScreenNav.route) {
             StatisticsScreen()
         }
-        composable(NavigationRoutes.AddEditCoopScreenNav.route) {
-            AddEditCoopScreen(navController = navController)
+        composable(
+            route = NavigationRoutes.AddEditCoopScreenNav.route,
+            arguments = NavigationRoutes.AddEditCoopScreenNav.navArguments
+        ) { backStackEntry ->
+            val coopId = backStackEntry.arguments?.getLong("coopId") ?: -1L
+            AddEditCoopScreen(navController = navController, coopId = coopId)
         }
 
     }
