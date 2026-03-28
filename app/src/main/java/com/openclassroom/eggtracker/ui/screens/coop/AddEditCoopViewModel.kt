@@ -15,6 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddEditCoopViewModel @Inject constructor(private val coopRepository: CoopRepository) : ViewModel() {
+    // TODO Tester le view model
     var name by mutableStateOf("")
         private set
 
