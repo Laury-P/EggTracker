@@ -9,10 +9,13 @@ import androidx.compose.ui.graphics.Color
 
 private val DarkColorScheme = darkColorScheme(
     primary = DarkChickYellow,
+    primaryContainer = Color(0xFF5A4B00),
+    onPrimaryContainer = DarkChickYellow,
     secondary = SoftRed,
     secondaryContainer = SoftGreen.copy(alpha = 0.3f),
     background = DarkBackground,
     surface = DarkSurface,
+    surfaceContainer = DarkSurface,
     onPrimary = Color.Black,
     onSecondary = Color.White,
     onBackground = DarkTextPrimary,
@@ -22,10 +25,13 @@ private val DarkColorScheme = darkColorScheme(
 
 private val LightColorScheme = lightColorScheme(
     primary = ChickYellow,
+    primaryContainer = EggShell,
+    onPrimaryContainer = DarkText,
     secondary = SoftRed,
     secondaryContainer = EggShell,
     background = Color(0xFFFFFCF5),
     surface = Color(0xFFFFF8EE),
+    surfaceContainer = Color(0xFFFFF8EE),
     onPrimary = DarkText,
     onSecondary = PureWhite,
     onBackground = DarkText,

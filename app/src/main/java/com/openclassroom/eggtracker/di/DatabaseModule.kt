@@ -19,8 +19,7 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideEggTrackerDatabase(
-        @ApplicationContext context: Context,
-        scope: CoroutineScope
+        @ApplicationContext context: Context
     ): EggTrackerDatabase {
         return Room.databaseBuilder(
             context.applicationContext,

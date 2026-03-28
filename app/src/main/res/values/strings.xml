@@ -1,15 +1,35 @@
 <resources>
     <string name="app_name">EggTracker</string>
 
+    <!-- Poultry Type -->
     <string name="poultry_chicken">Chicken</string>
     <string name="poultry_duck">Duck</string>
     <string name="poultry_goose">Goose</string>
     <string name="poultry_quail">Quail</string>
     <string name="poultry_other">Other</string>
 
+    <!-- Nav Route -->
     <string name="nav_home">Home</string>
     <string name="nav_coops">Coops</string>
     <string name="nav_egg_log">Egg Logs</string>
     <string name="nav_settings">Settings</string>
     <string name="nav_statistics">Statistics</string>
+    <string name="nav_add_edit_coop">Add new coop</string>
+
+    <!-- Buttons -->
+    <string name="delete_button">Delete</string>
+    <string name="edit_button">Edit</string>
+    <string name="save_button">Save</string>
+    <string name="back_button">Back</string>
+    <string name="cancel_button">Cancel</string>
+
+    <!-- Coop Screens -->
+    <string name="no_coops">No coops</string>
+    <string name="add_coop">Add</string>
+    <string name="coop_name_label">Name of coop</string>
+    <string name="bird_count_label">Number of bird</string>
+    <string name="bird_count_null_error">Number of bird should be above 0</string>
+    <string name="delete_coop_title">Delete coop</string>
+    <string name="delete_coop_text">Are you sure you want to delete %1$s. This action cannot be undone.</string>
+    <string name="edit_coop">Edit coop</string>
 </resources>

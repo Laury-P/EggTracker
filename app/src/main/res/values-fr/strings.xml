@@ -2,14 +2,36 @@
 <resources>
     <string name="app_name">EggTracker</string>
 
+    <!-- Type de volaille -->
     <string name="poultry_chicken">Poule</string>
     <string name="poultry_duck">Canard</string>
     <string name="poultry_goose">Oie</string>
     <string name="poultry_quail">Caille</string>
     <string name="poultry_other">Autre</string>
+
+    <!-- Nav Route -->
     <string name="nav_home">Acceuil</string>
     <string name="nav_coops">Poulailler</string>
     <string name="nav_egg_log">Saisie Oeuf</string>
     <string name="nav_settings">Paramètre</string>
     <string name="nav_statistics">Statistiques</string>
+    <string name="nav_add_edit_coop">Add new coop</string>
+
+    <!-- Boutons -->
+    <string name="delete_button">Supprimer</string>
+    <string name="edit_button">Modifier</string>
+    <string name="save_button">Enregistrer</string>
+    <string name="back_button">retour</string>
+
+    <!-- Coop Screens -->
+    <string name="no_coops">Aucun poulailler</string>
+    <string name="add_coop">Créer</string>
+    <string name="coop_name_label">Nom du poulailler</string>
+    <string name="bird_count_label">Nombre de volaille</string>
+    <string name="bird_count_null_error">Le nombre de volaille doit être supérieur à 0.</string>
+    <string name="cancel_button">Annuler</string>
+    <string name="delete_coop_title">Supprimer le poulailler</string>
+    <string name="delete_coop_text">Etes vous sure de vouloir supprimer %1$s. Cette action ne peut pas être annulée.</string>
+    <string name="edit_coop">Modifier le poulailler</string>
+
 </resources>
