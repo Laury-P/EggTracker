@@ -32,4 +32,7 @@
     <string name="delete_coop_title">Delete coop</string>
     <string name="delete_coop_text">Are you sure you want to delete %1$s. This action cannot be undone.</string>
     <string name="edit_coop">Edit coop</string>
+    <string name="egg_count_label">Number of eggs :</string>
+    <string name="note_label">Note (optionnal):</string>
+    <string name="saved_egg_log">Harvest saved!</string>
 </resources>
