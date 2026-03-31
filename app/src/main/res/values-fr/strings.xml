@@ -33,5 +33,8 @@
     <string name="delete_coop_title">Supprimer le poulailler</string>
     <string name="delete_coop_text">Etes vous sure de vouloir supprimer %1$s. Cette action ne peut pas être annulée.</string>
     <string name="edit_coop">Modifier le poulailler</string>
+    <string name="egg_count_label">"Nombre d'oeuf : "</string>
+    <string name="note_label">Note (optionnelle):</string>
+    <string name="saved_egg_log">Récolte enregistrée!</string>
 
 </resources>

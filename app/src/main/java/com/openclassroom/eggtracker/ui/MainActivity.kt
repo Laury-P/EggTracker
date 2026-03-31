@@ -26,7 +26,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.openclassroom.eggtracker.ui.screens.coop.CoopScreen
-import com.openclassroom.eggtracker.ui.screens.EggLogScreen
+import com.openclassroom.eggtracker.ui.screens.eggLog.EggLogScreen
 import com.openclassroom.eggtracker.ui.screens.HomeScreen
 import com.openclassroom.eggtracker.ui.screens.NavigationRoutes
 import com.openclassroom.eggtracker.ui.screens.SettingsScreen
@@ -124,7 +124,7 @@ fun EggTrackerNavHost(navController: NavHostController) {
             CoopScreen(navController = navController)
         }
         composable(NavigationRoutes.EggLogScreenNav.route) {
-            EggLogScreen()
+            EggLogScreen(navController = navController)
         }
         composable(NavigationRoutes.SettingsScreenNav.route) {
             SettingsScreen()

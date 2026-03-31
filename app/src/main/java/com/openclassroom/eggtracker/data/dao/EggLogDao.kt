@@ -20,7 +20,11 @@ interface EggLogDao {
 
     // EggLog for a specific day (ex: to display the current day and modify it)
     @Query("SELECT * FROM egg_log WHERE coop_id = :coopId AND date = :date")
-    suspend fun getDayEggLogByCoopId(coopId: Long, date: LocalDate): EggLogDto?
+    fun getDayEggLogByCoopId(coopId: Long, date: LocalDate): Flow<EggLogDto?>
+
+    // TODO A tester
+    @Query("SELECT * FROM egg_log WHERE date = :date")
+    fun getEggLogsByDate(date: LocalDate): Flow<List<EggLogDto>>
 
     // EggLog for the last 7 days for a specific Coop
     @Query("SELECT * FROM egg_log WHERE coop_id = :coopId ORDER BY date DESC LIMIT 7")
