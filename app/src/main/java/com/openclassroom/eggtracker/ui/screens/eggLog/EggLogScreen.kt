@@ -28,12 +28,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.openclassroom.eggtracker.R
+import com.openclassroom.eggtracker.ui.screens.NavigationRoutes
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun EggLogScreen(
-    viewModel: EggLogViewModel = hiltViewModel()
+    viewModel: EggLogViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val context = LocalContext.current
     val coopsEggLog = viewModel.coopsEggLog.collectAsStateWithLifecycle()
@@ -41,8 +44,16 @@ fun EggLogScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                viewModel.saveEggLog()
-                Toast.makeText(context, R.string.saved_egg_log, Toast.LENGTH_SHORT).show()
+                viewModel.saveEggLog(onSuccess = {
+                    // TODO A remplacer par un snackbar avec option d'annuler?
+                    Toast.makeText(context, R.string.saved_egg_log, Toast.LENGTH_SHORT).show()
+                    navController.navigate(NavigationRoutes.HomeScreenNav.route){
+                        popUpTo(NavigationRoutes.HomeScreenNav.route){
+                            inclusive = true
+                        }
+                    }
+                })
+
             }) {
                 Icon(
                     imageVector = Icons.Default.Check,

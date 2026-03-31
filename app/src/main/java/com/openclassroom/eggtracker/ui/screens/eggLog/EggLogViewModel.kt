@@ -44,7 +44,10 @@ class EggLogViewModel @Inject constructor(
                 note = noteEdits[coop.id] ?: eggLog?.note ?: "",
                 birdCount = coop.birdCount
             )
-        }
+        }.sortedWith(
+            compareBy<EggLogState> { it.eggLogId != null }
+                .thenBy { it.coopName }
+        )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
     fun onCountChange(coopId: Long, newCount: String) {
@@ -55,23 +58,28 @@ class EggLogViewModel @Inject constructor(
         userEditsNote[coopId] = newNote
     }
 
-    fun saveEggLog() {
+    fun saveEggLog(onSuccess: () -> Unit) {
         viewModelScope.launch {
             val snapshotToSave = coopsEggLog.value
-            snapshotToSave.forEach { state ->
-                val eggLog = EggLog(
-                    eggLogId = state.eggLogId,
-                    coopId = state.coopId,
-                    date = LocalDate.now(),
-                    eggCount = state.eggCount?: 0,
-                    birdCount = state.birdCount,
-                    note = state.note
-                )
 
-                eggRepository.insertOrUpdateEgg(eggLog)
+
+            snapshotToSave.forEach { state ->
+                // Save state only if it has been edited or there is either a note or an egg count
+                if (state.eggLogId != null || userEditsEggCount.containsKey(state.coopId) || userEditsNote.containsKey(state.coopId)) {
+                    val eggLog = EggLog(
+                        eggLogId = state.eggLogId,
+                        coopId = state.coopId,
+                        date = LocalDate.now(),
+                        eggCount = state.eggCount?: 0,
+                        birdCount = state.birdCount,
+                        note = state.note
+                    )
+                    eggRepository.insertOrUpdateEgg(eggLog)
+                }
             }
             userEditsEggCount.clear()
             userEditsNote.clear()
+            onSuccess()
         }
     }
 }

@@ -124,7 +124,7 @@ fun EggTrackerNavHost(navController: NavHostController) {
             CoopScreen(navController = navController)
         }
         composable(NavigationRoutes.EggLogScreenNav.route) {
-            EggLogScreen()
+            EggLogScreen(navController = navController)
         }
         composable(NavigationRoutes.SettingsScreenNav.route) {
             SettingsScreen()
